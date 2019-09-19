@@ -1,0 +1,17 @@
+version: '2'
+services:
+  postgres:
+    image: postgres:9.5
+    env_file: .env
+    volumes:
+      - ./data-five-minutes/:/var/lib/postgresql/data/
+
+  five_minutes:
+    restart: always
+    build: 
+      context: ./five_minutes
+      dockerfile: Dockerfile
+    env_file: .env
+    ports:
+    - "8080:8080"
+    command: ./run_prod.sh
