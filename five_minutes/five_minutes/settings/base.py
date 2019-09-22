@@ -17,9 +17,6 @@ import datetime
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.dirname(os.path.dirname(__file__))
 
-print("BASE_DIR", BASE_DIR)
-print("DATA_DIR", DATA_DIR)
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -83,8 +80,6 @@ TEMPLATES = [
         },
     },
 ]
-
-print("TEMPLATES::DIR", TEMPLATES[0].get('DIRS'))
 
 WSGI_APPLICATION = 'five_minutes.wsgi.application'
 
@@ -207,5 +202,12 @@ LOGGING = {
             'level': 'DEBUG',
             'handlers': ['console'],
         }
+    }
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
     }
 }
