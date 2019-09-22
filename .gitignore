@@ -1,0 +1,4 @@
+*.pyc
+.idea/*
+.env
+data-five-minutes

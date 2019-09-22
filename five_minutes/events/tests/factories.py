@@ -17,4 +17,4 @@ class EventFactory(factory.DjangoModelFactory):
     end_datetime = timezone.now() + timedelta(hours=6)
     space = factory.SubFactory(PromoterSpaceFactory)
     promoter = factory.SelfAttribute('space.promoter')
-    description = "#Event description \n\n##Data \n\nDescription body"
+    description = factory.Faker('paragraphs', nb=3, ext_word_list=None)
