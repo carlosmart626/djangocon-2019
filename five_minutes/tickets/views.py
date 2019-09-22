@@ -10,3 +10,8 @@ class TicketViewSet(ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
     permission_classes = [IsAuthenticated, ]
+
+    def get_queryset(self):
+        return Ticket.objects.all() \
+            .select_related('event', 'user') \
+            .prefetch_related('event__space')

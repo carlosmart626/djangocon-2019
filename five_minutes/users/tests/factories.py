@@ -9,7 +9,7 @@ class UserFactory(factory.DjangoModelFactory):
     class Meta:
         model = User
 
-    email = factory.Faker('ascii_email')
-    first_name = factory.Faker('first_name')
+    first_name = factory.Sequence(lambda n: 'john%s' % n)
     last_name = factory.Faker('last_name')
+    email = factory.LazyAttribute(lambda o: '%s.%s@example.org' % (o.first_name, o.last_name))
     date_joined = factory.LazyFunction(datetime.datetime.now)
