@@ -1,6 +1,7 @@
 from django.db.models import Prefetch
 from dry_rest_permissions.generics import DRYPermissions
 from rest_framework import mixins
+from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -23,7 +24,9 @@ class TicketViewSet(ModelViewSet):
     filter_backends = (DjangoFilterBackend, OrderingFilter)
     filter_class = TicketFilterSet
     ordering_fields = (
-        'event__name', 'event_start_datetime', )
+        'event__name',
+        'event_start_datetime',
+    )
 
     def get_queryset(self):
         return Ticket.objects.all() \
@@ -40,6 +43,14 @@ class TicketViewSet(ModelViewSet):
                     queryset=PromoterSpace.objects.all().only('id', 'name', 'description').cache()
                 )
             ).cache()
+
+    @action(methods=['post', ], detail=True, url_path="mark-used-ticket")
+    def mark_used_ticket(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.already_used = True
+        instance.save()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
 
 
 class MyTicketsView(APIView):
