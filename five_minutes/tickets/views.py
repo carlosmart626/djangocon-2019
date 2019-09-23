@@ -1,9 +1,12 @@
 from django.db.models import Prefetch
+from drf_renderer_xlsx.mixins import XLSXFileMixin
+from drf_renderer_xlsx.renderers import XLSXRenderer
 from dry_rest_permissions.generics import DRYPermissions
 from rest_framework import mixins
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
@@ -17,10 +20,11 @@ from .models import Ticket
 from .serializers import TicketSerializer, MyTicketsSerializer
 
 
-class TicketViewSet(ModelViewSet):
+class TicketViewSet(XLSXFileMixin, ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
     permission_classes = (IsAuthenticated, DRYPermissions, )
+    renderer_classes = (BrowsableAPIRenderer, JSONRenderer, XLSXRenderer, )
     filter_backends = (DjangoFilterBackend, OrderingFilter)
     filter_class = TicketFilterSet
     ordering_fields = (
