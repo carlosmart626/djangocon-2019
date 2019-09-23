@@ -10,11 +10,12 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('Process startes'))
 
         User = get_user_model()
-        User.objects.create_superuser(
+        admin_user = User.objects.create_superuser(
             email="admin@admin.co",
             password="123admin123"
         )
         self.stdout.write(self.style.SUCCESS('User created'))
 
         TicketFactory.create_batch(5)
+        TicketFactory.create_batch(5, user=admin_user)
         self.stdout.write(self.style.SUCCESS('Tickets successfully created'))

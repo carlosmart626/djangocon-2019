@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, Serializer
 
 from events.models import Event
 from events.serializers import EventSerializer
@@ -24,3 +24,14 @@ class TicketSerializer(ModelSerializer):
             'user',
             'already_used'
         )
+
+
+class MyTicketsSerializer(Serializer):
+    user = UserSerializer(read_only=True)
+    tickets = TicketSerializer(many=True, read_only=True)
+
+    def update(self, instance, validated_data):
+        pass
+
+    def create(self, validated_data):
+        pass

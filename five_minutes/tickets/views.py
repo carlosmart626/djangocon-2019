@@ -1,6 +1,8 @@
 from django.db.models import Prefetch
 from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from url_filter.integrations.drf import DjangoFilterBackend
 
@@ -8,7 +10,7 @@ from events.models import Event
 from promoters.models import PromoterSpace
 from tickets.filters import TicketFilterSet
 from .models import Ticket
-from .serializers import TicketSerializer
+from .serializers import TicketSerializer, MyTicketsSerializer
 
 
 class TicketViewSet(ModelViewSet):
@@ -26,12 +28,20 @@ class TicketViewSet(ModelViewSet):
             .prefetch_related(
                 Prefetch(
                     'event',
-                    queryset=Event.objects.all().only('id', 'name', 'start_datetime', 'end_datetime', 'space')
+                    queryset=Event.objects.all().only('id', 'name', 'start_datetime', 'end_datetime', 'space').cache()
                 )
             ) \
             .prefetch_related(
                 Prefetch(
                     'event__space',
-                    queryset=PromoterSpace.objects.all().only('id', 'name', 'description')
+                    queryset=PromoterSpace.objects.all().only('id', 'name', 'description').cache()
                 )
-            )
+            ).cache()
+
+
+class MyTicketsView(APIView):
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        tickets = Ticket.objects.filter(user=user).cache()
+        return Response(MyTicketsSerializer({'user': user, 'tickets': tickets}).data)

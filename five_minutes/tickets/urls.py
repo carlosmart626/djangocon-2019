@@ -12,4 +12,5 @@ ROUTER.register(r'tickets', views.TicketViewSet)
 
 urlpatterns = [
     url(r'^', include(ROUTER.urls)),
+    url(r'my-tickets', views.MyTicketsView.as_view(), name='my-tickets'),
 ]

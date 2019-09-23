@@ -21,3 +21,7 @@ services:
     ports:
     - "8080:8080"
     command: ./run_local.sh
+
+  redis:
+    restart: always
+    image: redis:4.0.6
