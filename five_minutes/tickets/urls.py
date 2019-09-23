@@ -9,6 +9,7 @@ from tickets import views
 # Create a router and register our viewsets with it.
 ROUTER = DefaultRouter(trailing_slash=False)
 ROUTER.register(r'tickets', views.TicketViewSet)
+ROUTER.register(r'use-ticket', views.UserTicketViewSet)
 
 urlpatterns = [
     url(r'^', include(ROUTER.urls)),

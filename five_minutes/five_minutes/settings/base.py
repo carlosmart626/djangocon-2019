@@ -50,6 +50,7 @@ DJANGO_COMMON_APPS = [
 ADDITIONAL_APPS = [
     'rest_framework',
     'cacheops',
+    'dry_rest_permissions',
 ]
 
 INSTALLED_APPS = DJANGO_COMMON_APPS + ADDITIONAL_APPS + PROJECT_APPS

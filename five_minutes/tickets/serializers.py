@@ -1,3 +1,4 @@
+from dry_rest_permissions.generics import DRYPermissionsField
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer, Serializer
 
@@ -13,6 +14,7 @@ class TicketSerializer(ModelSerializer):
     event = EventSerializer(read_only=True, fields=EventSerializer.get_nested_fields())
     user_id = serializers.PrimaryKeyRelatedField(source='user', queryset=User.objects.all())
     user = UserSerializer(read_only=True)
+    permissions = DRYPermissionsField()
 
     class Meta:
         model = Ticket
@@ -22,7 +24,8 @@ class TicketSerializer(ModelSerializer):
             'event',
             'user_id',
             'user',
-            'already_used'
+            'already_used',
+            'permissions',
         )
 
 

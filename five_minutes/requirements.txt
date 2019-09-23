@@ -12,6 +12,7 @@ django-rest-framework==0.1.0
 django-url-filter==0.3.13
 djangorestframework==3.10.3
 djangorestframework-jwt==1.11.0
+dry-rest-permissions==0.1.10
 entrypoints==0.3
 enum-compat==0.0.2
 factory-boy==2.12.0
