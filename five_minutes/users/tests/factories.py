@@ -1,6 +1,5 @@
 import datetime
 import factory
-import uuid
 
 from users.models import User
 

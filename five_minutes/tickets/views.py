@@ -23,8 +23,8 @@ from .serializers import TicketSerializer, MyTicketsSerializer
 class TicketViewSet(XLSXFileMixin, ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
-    permission_classes = (IsAuthenticated, DRYPermissions, )
-    renderer_classes = (BrowsableAPIRenderer, JSONRenderer, XLSXRenderer, )
+    permission_classes = (IsAuthenticated, DRYPermissions,)
+    renderer_classes = (BrowsableAPIRenderer, JSONRenderer, XLSXRenderer,)
     filter_backends = (DjangoFilterBackend, OrderingFilter)
     filter_class = TicketFilterSet
     ordering_fields = (
@@ -36,17 +36,17 @@ class TicketViewSet(XLSXFileMixin, ModelViewSet):
         return Ticket.objects.all() \
             .prefetch_related('user') \
             .prefetch_related(
-                Prefetch(
-                    'event',
-                    queryset=Event.objects.all().only('id', 'name', 'start_datetime', 'end_datetime', 'space').cache()
-                )
-            ) \
+            Prefetch(
+                'event',
+                queryset=Event.objects.all().only('id', 'name', 'start_datetime', 'end_datetime', 'space').cache()
+            )
+        ) \
             .prefetch_related(
-                Prefetch(
-                    'event__space',
-                    queryset=PromoterSpace.objects.all().only('id', 'name', 'description').cache()
-                )
-            ).cache()
+            Prefetch(
+                'event__space',
+                queryset=PromoterSpace.objects.all().only('id', 'name', 'description').cache()
+            )
+        ).cache()
 
     @action(methods=['post', ], detail=True, url_path="mark-used-ticket")
     def mark_used_ticket(self, request, *args, **kwargs):
@@ -74,14 +74,14 @@ class UserTicketViewSet(mixins.RetrieveModelMixin, GenericViewSet):
         return Ticket.objects.all() \
             .prefetch_related('user') \
             .prefetch_related(
-                Prefetch(
-                    'event',
-                    queryset=Event.objects.all().only('id', 'name', 'start_datetime', 'end_datetime', 'space').cache()
-                )
-            ) \
+            Prefetch(
+                'event',
+                queryset=Event.objects.all().only('id', 'name', 'start_datetime', 'end_datetime', 'space').cache()
+            )
+        ) \
             .prefetch_related(
-                Prefetch(
-                    'event__space',
-                    queryset=PromoterSpace.objects.all().only('id', 'name', 'description').cache()
-                )
-            ).cache()
+            Prefetch(
+                'event__space',
+                queryset=PromoterSpace.objects.all().only('id', 'name', 'description').cache()
+            )
+        ).cache()
