@@ -4,7 +4,7 @@ backcall==0.1.0
 cached-property==1.5.1
 coverage==4.5.4
 decorator==4.4.0
-Django==2.2.5
+Django==2.2.13
 django-cacheops==4.2
 django-extensions==2.2.1
 django-redis==4.10.0
