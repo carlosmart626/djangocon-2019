@@ -10,7 +10,7 @@ django-extensions==2.2.1
 django-redis==4.10.0
 django-rest-framework==0.1.0
 django-url-filter==0.3.13
-djangorestframework==3.10.3
+djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
 drf-renderer-xlsx==0.3.3
 dry-rest-permissions==0.1.10
