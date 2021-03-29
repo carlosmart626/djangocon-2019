@@ -40,7 +40,7 @@ ptyprocess==0.6.0
 py==1.8.0
 pycodestyle==2.5.0
 pyflakes==2.1.1
-Pygments==1.6
+Pygments==2.7.4
 PyJWT==1.7.1
 pyparsing==2.4.2
 pytest==5.1.2
