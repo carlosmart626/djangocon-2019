@@ -37,7 +37,7 @@ pluggy==0.13.0
 prompt-toolkit==2.0.9
 psycopg2-binary==2.7.7
 ptyprocess==0.6.0
-py==1.8.0
+py==1.10.0
 pycodestyle==2.5.0
 pyflakes==2.1.1
 Pygments==1.6
