@@ -22,7 +22,7 @@ Faker==2.0.2
 flake8==3.7.8
 funcy==1.13
 importlib-metadata==0.23
-ipython==7.8.0
+ipython==7.16.3
 ipython-genutils==0.2.0
 jdcal==1.4.1
 jedi==0.15.1
